@@ -1,0 +1,15 @@
+============================================
+  Log de publicacao - 15/07/2026  0:00:15,16
+============================================
+Pasta local : M:\Meu Drive\01 PROJETOS 2026\0010 PROJETO APUI PLANO
+Repositorio : https://github.com/Charles-Igeotecnologia/FGIS-APUI.git
+
+C:\Program Files\Git\cmd\git.exe
+[errorlevel do "where git": 0]
+
+Repositorio Git local ja existe nesta pasta, reaproveitando.
+
+https://github.com/Charles-Igeotecnologia/FGIS-APUI.git
+Atualizando URL do remoto "origin"...
+
+Adicionando arquivos (respeitando o .gitignore)...
