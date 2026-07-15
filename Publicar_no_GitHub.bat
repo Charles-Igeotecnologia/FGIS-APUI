@@ -91,7 +91,7 @@ if !errorlevel!==0 (
     git pull origin main --allow-unrelated-histories --no-edit
     echo [errorlevel do pull: !errorlevel!]
 ) else (
-    echo Remoto ainda nao tem commits em "main" (ou main nao existe ainda no remoto).
+    echo Remoto ainda nao tem commits em "main" ou main nao existe ainda no remoto.
 )
 
 echo.
