@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Poligono Desenhado FGIS</name>
+    <description>Poligono desenhado manualmente pelo usuario no FGIS</description>
+    
+    <Style id="drawnPolyStyle">
+      <LineStyle>
+        <color>ff0000ff</color> <!-- Vermelho -->
+        <width>2.5</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>320000ff</color> <!-- Vermelho Translúcido -->
+      </PolyStyle>
+    </Style>
+    
+    <Placemark>
+      <name>Poligono Manual</name>
+      <styleUrl>#drawnPolyStyle</styleUrl>
+      <Polygon>
+        <tessellate>1</tessellate>
+        <outerBoundaryIs>
+          <LinearRing>
+            <coordinates>
+              -59.846728,-7.393199,0
+          -59.841577,-7.394135,0
+          -59.845912,-7.39818,0
+          -59.845912,-7.39818,0
+          -59.846728,-7.393199,0
+            </coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+  </Document>
+</kml>

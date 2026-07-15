@@ -1,0 +1,970 @@
+/* FGIS Style - Estilo Premium Escuro com Efeito Vidro (Glassmorphism) */
+
+:root {
+    --bg-dark: #0f1015;
+    --panel-bg: rgba(20, 24, 33, 0.75);
+    --panel-border: rgba(255, 255, 255, 0.08);
+    --text-primary: #f3f4f6;
+    --text-secondary: #9ca3af;
+    --accent-color: #10b981; /* Esmeralda */
+    --accent-hover: #059669;
+    --flight-color: #f59e0b; /* Amarelo/Ouro para voos */
+    --flight-alpha: rgba(245, 158, 11, 0.15);
+    --danger-color: #ef4444;
+    --secondary-color: #374151;
+    --secondary-hover: #4b5563;
+    --shadow-main: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: var(--font-body);
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+}
+
+#app-container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+/* --- BARRA LATERAL --- */
+#sidebar {
+    width: 420px;
+    height: 100%;
+    z-index: 1000;
+    background: var(--panel-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-right: 1px solid var(--panel-border);
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-main);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-header {
+    padding: 24px;
+    border-bottom: 1px solid var(--panel-border);
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.icon-logo {
+    font-size: 28px;
+    background: linear-gradient(135deg, var(--accent-color), #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.logo-area h1 {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+}
+
+.logo-area .subtitle {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.sidebar-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Custom Scrollbar para Sidebar */
+.sidebar-content::-webkit-scrollbar {
+    width: 6px;
+}
+.sidebar-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+.sidebar-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+.sidebar-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.control-section {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.control-section h2 {
+    font-family: var(--font-heading);
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.sec-icon {
+    font-size: 16px;
+}
+
+/* --- LAYERS CONTROL --- */
+.layer-control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.control-item {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    font-size: 13px;
+    color: var(--text-primary);
+    padding: 6px 0;
+}
+
+.control-item input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkbox-custom {
+    position: relative;
+    height: 18px;
+    width: 18px;
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+    margin-right: 10px;
+    transition: all 0.2s;
+}
+
+.control-item:hover input ~ .checkbox-custom {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.control-item input:checked ~ .checkbox-custom {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.checkbox-custom:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.control-item input:checked ~ .checkbox-custom:after {
+    display: block;
+}
+
+.control-item .checkbox-custom:after {
+    left: 6px;
+    top: 2px;
+    width: 4px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.layer-label {
+    font-weight: 500;
+}
+
+/* --- BOTÕES E INPUTS --- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 18px;
+    border-radius: 8px;
+    border: none;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 100%;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--accent-color), #059669);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #059669, #047857);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3);
+}
+
+.btn-secondary {
+    background: var(--secondary-color);
+    color: var(--text-primary);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.btn-secondary:hover {
+    background: var(--secondary-hover);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, var(--flight-color), #d97706);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
+}
+
+.btn-success:hover:not(:disabled) {
+    background: linear-gradient(135deg, #d97706, #b45309);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(245, 158, 11, 0.3);
+}
+
+.btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.btn-sm {
+    padding: 8px 12px;
+    font-size: 12px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.input-group label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.range-value-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.range-value-container input[type="range"] {
+    flex: 1;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.range-value-container input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.range-value-container input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+.range-value-container span {
+    font-size: 13px;
+    font-weight: 600;
+    min-width: 60px;
+    text-align: right;
+    color: #ffffff;
+}
+
+/* --- GRID DE FERRAMENTAS --- */
+.tool-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.btn-tool {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 4px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-tool:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-tool.active {
+    background: rgba(16, 185, 129, 0.15);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    box-shadow: inset 0 0 8px rgba(16, 185, 129, 0.1);
+}
+
+.tool-icon {
+    font-size: 18px;
+}
+
+/* --- ESTATÍSTICAS --- */
+.stats-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.stat-item {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+}
+
+.stat-num {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--flight-color);
+}
+
+.stat-desc {
+    font-size: 10px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+/* --- LISTA DE VOOS --- */
+.flights-list {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.15);
+    padding: 8px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.placeholder-text {
+    font-size: 12px;
+    color: var(--text-secondary);
+    text-align: center;
+    padding: 20px 10px;
+    font-style: italic;
+}
+
+.flight-item-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.flight-item-card:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.flight-item-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.flight-color-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--flight-color);
+    box-shadow: 0 0 8px var(--flight-color);
+}
+
+.flight-info-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.flight-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.flight-detail {
+    font-size: 9px;
+    color: var(--text-secondary);
+}
+
+.flight-checkbox {
+    width: 14px;
+    height: 14px;
+    accent-color: var(--flight-color);
+    cursor: pointer;
+}
+
+.sidebar-footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--panel-border);
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+/* Rastreabilidade: data/origem do GeoPackage que gerou os dados exibidos */
+.data-vintage-text {
+    margin-top: 4px;
+    font-size: 9px;
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+/* --- MAPA --- */
+#map {
+    flex: 1;
+    height: 100%;
+    z-index: 1;
+}
+
+/* --- FLOATING WIDGET --- */
+.floating-widget {
+    position: absolute;
+    bottom: 24px;
+    left: 444px; /* Deslocado da sidebar */
+    z-index: 1000;
+    background: rgba(15, 17, 23, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--panel-border);
+    box-shadow: var(--shadow-main);
+    border-radius: 8px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 450px;
+    animation: slideUp 0.3s ease;
+    transition: all 0.3s;
+}
+
+.floating-widget.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+}
+
+.widget-icon {
+    font-size: 20px;
+    color: var(--accent-color);
+}
+
+#info-widget-content {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--text-primary);
+}
+
+.btn-close {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0 4px;
+    align-self: flex-start;
+}
+
+.btn-close:hover {
+    color: #ffffff;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Estilo adicional para os popups do Leaflet em modo escuro */
+.leaflet-popup-content-wrapper {
+    background: #1e222b !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+}
+
+.leaflet-popup-tip {
+    background: #1e222b !important;
+}
+
+.leaflet-popup-content h3 {
+    font-family: var(--font-heading);
+    font-size: 14px;
+    color: #ffffff;
+    margin-bottom: 6px;
+}
+
+.leaflet-popup-content p {
+    font-size: 11px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+/* Modificadores Leaflet Controles */
+.leaflet-bar {
+    border: 1px solid var(--panel-border) !important;
+    box-shadow: var(--shadow-main) !important;
+}
+
+.leaflet-bar a {
+    background-color: #1e222b !important;
+    color: var(--text-primary) !important;
+    border-bottom: 1px solid var(--panel-border) !important;
+}
+
+.leaflet-bar a:hover {
+    background-color: #2e3443 !important;
+    color: #ffffff !important;
+}
+
+/* --- ESTILOS DE MEDIÇÃO E TOOLTIPS DO MAPA --- */
+.dist-tooltip {
+    background: rgba(15, 23, 42, 0.85) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    color: #ef4444 !important; /* Vermelho correspondente à linha */
+    font-weight: 700 !important;
+    font-size: 9px !important;
+    padding: 2px 5px !important;
+    border-radius: 4px !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3) !important;
+    white-space: nowrap;
+}
+
+.measure-label-container {
+    background: transparent !important;
+    border: none !important;
+}
+
+.measure-label-bubble {
+    background: #3b82f6; /* Azul para medições */
+    color: #ffffff;
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    white-space: nowrap;
+    position: relative;
+}
+
+.measure-label-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px 6px 0;
+    border-style: solid;
+    border-color: #3b82f6 transparent;
+    display: block;
+    width: 0;
+}
+
+/* Tooltip que acompanha o cursor durante o desenho de linha/polígono/régua,
+   mostrando em tempo real quantos metros está sendo criado no segmento atual. */
+.live-distance-tooltip {
+    background: rgba(15, 23, 42, 0.92) !important;
+    border: 1px solid rgba(16, 185, 129, 0.55) !important;
+    color: #ffffff !important;
+    font-family: var(--font-body);
+    font-weight: 700 !important;
+    font-size: 11px !important;
+    padding: 3px 8px !important;
+    border-radius: 6px !important;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.45) !important;
+    white-space: nowrap;
+    pointer-events: none;
+}
+.live-distance-tooltip::before {
+    /* Remove a seta/triângulo padrão do tooltip do Leaflet — bolha limpa, sem hachura */
+    display: none !important;
+}
+
+/* Rótulos permanentes e clicáveis exibidos em cada lado de polígonos/linhas
+   desenhados manualmente, permitindo definir a distância exata daquele lado. */
+.segment-label-marker {
+    background: transparent;
+    border: none;
+}
+
+.segment-label-bubble {
+    position: relative;
+    transform: translate(-50%, -50%);
+    background: rgba(15, 23, 42, 0.92);
+    border: 1px solid rgba(245, 158, 11, 0.55);
+    color: var(--flight-color);
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 5px;
+    white-space: nowrap;
+    cursor: pointer;
+    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.4);
+    transition: all 0.15s ease;
+}
+
+.segment-label-bubble:hover {
+    background: var(--flight-color);
+    color: #0f1015;
+    transform: translate(-50%, -50%) scale(1.08);
+}
+
+/* --- ESTILOS DOS PONTOS E MARCADORES ESTRATÉGICOS (PULSE) --- */
+.custom-pulse-marker {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pulse-marker-core {
+    width: 16px;
+    height: 16px;
+    background-color: var(--flight-color); /* Amarelo/Ouro */
+    border: 1.5px solid #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+    z-index: 2;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 9px;
+    font-weight: 800;
+    font-family: var(--font-body);
+}
+
+.pulse-marker-ring {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border: 2px solid var(--flight-color);
+    border-radius: 50%;
+    opacity: 0;
+    z-index: 1;
+}
+
+/* O pulso só se ativa quando o plano está selecionado/ativo */
+.pulse-marker-ring.active {
+    animation: markerPulse 1.8s infinite ease-out;
+}
+
+@keyframes markerPulse {
+    0% {
+        transform: scale(0.5);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1.6);
+        opacity: 0;
+    }
+}
+
+/* --- ESTILO DE SUGESTÃO DE BASES (PULSO VERMELHO) --- */
+.red-core {
+    background-color: #ef4444 !important; /* Vermelho */
+    cursor: default !important;
+}
+
+.red-active {
+    border-color: #ef4444 !important;
+    animation: markerPulseRed 1.8s infinite ease-out !important;
+}
+
+@keyframes markerPulseRed {
+    0% {
+        transform: scale(0.5);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1.6);
+        opacity: 0;
+    }
+}
+
+/* --- ESTILO DE PONTOS VIRTUAIS CRIADOS MANUALMENTE (PULSO CIANO) --- */
+.virtual-core {
+    background-color: #06b6d4 !important; /* Ciano moderno */
+    border-color: #ffffff !important;
+}
+
+.virtual-ring {
+    border-color: #06b6d4 !important;
+}
+
+/* --- CARD ATIVO NA LISTA LATERAL --- */
+.flight-item-card.active {
+    background: rgba(245, 158, 11, 0.08); /* Fundo sutil dourado */
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+/* --- POPUP CUSTOMIZADO LEAFLET --- */
+.leaflet-custom-popup h3 {
+    margin-top: 0;
+    font-size: 13px;
+    color: #ffffff;
+    font-family: var(--font-heading);
+    border-bottom: 1px solid var(--panel-border);
+    padding-bottom: 4px;
+}
+
+.leaflet-custom-popup p {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin: 4px 0;
+}
+
+/* --- CORREÇÃO CRÍTICA DE CLIQUES DA RÉGUA E DESENHOS --- */
+.tool-active .gleba-layer,
+.tool-active .inactive-point-layer,
+.tool-active .flight-poly-layer {
+    pointer-events: none !important;
+}
+
+/* --- TOOLTIPS DE RÓTULOS PERMANENTES DE BASES --- */
+.base-label-tooltip {
+    background: rgba(15, 23, 42, 0.95) !important;
+    border: 1px solid rgba(245, 158, 11, 0.4) !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    font-size: 10px !important;
+    padding: 3px 6px !important;
+    border-radius: 4px !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4) !important;
+}
+.base-label-tooltip::before {
+    border-top-color: rgba(245, 158, 11, 0.4) !important;
+}
+
+/* --- BOTÃO DE TOGGLE DA SIDEBAR E COLAPSO --- */
+.sidebar-toggle {
+    position: absolute;
+    top: 20px;
+    right: -24px; /* Fica metade para fora do painel da sidebar */
+    width: 24px;
+    height: 48px;
+    background: rgba(20, 24, 33, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--panel-border);
+    border-left: none;
+    border-radius: 0 8px 8px 0;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1001; /* Fica sobre o Leaflet */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.4);
+    font-size: 10px;
+}
+
+.sidebar-toggle:hover {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--accent-color);
+    border-color: rgba(16, 185, 129, 0.4);
+}
+
+/* Quando colapsado */
+#sidebar.collapsed {
+    margin-left: -420px; /* Esconde a sidebar de 420px */
+}
+
+#sidebar.collapsed .sidebar-toggle {
+    right: -24px;
+    border-left: 1px solid var(--panel-border);
+}
+
+/* Transições no widget flutuante e reposicionamento */
+.floating-widget {
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+#app-container.sidebar-collapsed .floating-widget {
+    left: 24px !important;
+}
+
+/* --- LEGENDA DE CURVAS DE NÍVEL (GRADIENTE DE ALTITUDE) --- */
+.legend-container {
+    background: rgba(15, 17, 23, 0.85) !important;
+    border: 1px solid var(--panel-border) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border-radius: 8px !important;
+    padding: 10px 14px !important;
+    color: #ffffff !important;
+    font-family: var(--font-body) !important;
+    font-size: 11px !important;
+    line-height: 1.5 !important;
+    box-shadow: var(--shadow-main) !important;
+    pointer-events: auto !important;
+    min-width: 130px;
+}
+.legend-title {
+    font-weight: 700 !important;
+    font-family: var(--font-heading) !important;
+    color: #06b6d4 !important;
+    margin-bottom: 6px !important;
+    text-transform: uppercase !important;
+    font-size: 10px !important;
+    letter-spacing: 0.5px !important;
+}
+.legend-gradient {
+    height: 8px !important;
+    background: linear-gradient(to right, hsl(180, 70%, 40%), hsl(120, 70%, 40%), hsl(60, 70%, 40%), hsl(0, 70%, 40%)) !important;
+    border-radius: 4px !important;
+    margin-bottom: 4px !important;
+}
+.legend-labels {
+    display: flex !important;
+    justify-content: space-between !important;
+    font-size: 9px !important;
+    color: var(--text-secondary) !important;
+}
+
+/* Rótulos das Curvas Mestras */
+.contour-label-tooltip {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: #d97706 !important;
+    font-weight: 700 !important;
+    font-size: 9px !important;
+    font-family: monospace !important;
+    text-shadow: 
+        -1.5px -1.5px 0 #ffffff,  
+         1.5px -1.5px 0 #ffffff,
+        -1.5px  1.5px 0 #ffffff,
+         1.5px  1.5px 0 #ffffff,
+         0px 0px 3px #ffffff !important;
+    pointer-events: none !important;
+    white-space: nowrap !important;
+}
+.contour-label-tooltip::before {
+    display: none !important; /* Remove a setinha padrão do tooltip */
+}
+
+/* --- BOTÃO DE GEOLOCALIZAÇÃO CUSTOMIZADO --- */
+.leaflet-location-control a {
+    background-color: rgba(20, 24, 33, 0.85) !important;
+    border: 1px solid var(--panel-border) !important;
+    color: #ffffff !important;
+    font-size: 13px !important;
+    line-height: 28px !important;
+    text-align: center !important;
+    border-radius: 4px !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    transition: all 0.2s ease !important;
+}
+.leaflet-location-control a:hover {
+    background-color: rgba(6, 182, 212, 0.25) !important;
+    border-color: #06b6d4 !important;
+}
+.leaflet-location-control.active a {
+    background-color: #06b6d4 !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.6) !important;
+    border-color: #06b6d4 !important;
+}
+
+/* Animação de pulsação para o marcador do GPS em tempo real */
+@keyframes gpsPulse {
+    0% {
+        transform: scale(0.9);
+        opacity: 0.9;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+        box-shadow: 0 0 12px rgba(6, 182, 212, 0.8);
+    }
+    100% {
+        transform: scale(0.9);
+        opacity: 0.9;
+    }
+}
+.gps-position-marker {
+    animation: gpsPulse 2s infinite ease-in-out !important;
+}

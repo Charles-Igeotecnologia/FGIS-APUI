@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FGIS - Planejamento de Voo Inteligente | Projeto Apuí</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    
+    <!-- CSS Customizado -->
+    <link rel="stylesheet" href="style.css?v=1.1.3">
+</head>
+<body>
+    <div id="app-container">
+        <!-- Barra Lateral de Controle (Glassmorphism) -->
+        <aside id="sidebar">
+            <button id="sidebar-toggle" class="sidebar-toggle" title="Recolher Painel">◀</button>
+            <header class="sidebar-header">
+                <div class="logo-area">
+                    <span class="icon-logo">🛰️</span>
+                    <div>
+                        <h1>FGIS APUÍ</h1>
+                        <p class="subtitle">Planejador de Voo Inteligente</p>
+                    </div>
+                </div>
+            </header>
+
+            <div class="sidebar-content">
+                <!-- Seção 1: Camadas de Referência -->
+                <section class="control-section">
+                    <h2><span class="sec-icon">🗺️</span> Camadas do Projeto</h2>
+                    <div class="layer-control-group">
+                        <!-- Imagem de Satélite -->
+                        <label class="control-item" style="display: flex; flex-direction: column; align-items: stretch; gap: 4px;">
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                <span class="layer-label" style="font-weight: 600; color: #ffffff;">Fundo (Imagem de Satélite)</span>
+                            </div>
+                            <div id="sat-opacity-container" style="margin-left: 0px; display: flex; align-items: center; gap: 8px; margin-top: 4px;">
+                                <span style="font-size: 9px; color: var(--text-secondary); white-space: nowrap;">Opacidade:</span>
+                                <input type="range" id="layer-sat-opacity" min="0" max="1" step="0.05" value="1.0" style="flex: 1; height: 3px; accent-color: #3b82f6; cursor: pointer; outline: none; background: rgba(255,255,255,0.1); border-radius: 2px;">
+                                <span id="layer-sat-opacity-val" style="font-size: 9px; color: var(--text-secondary); font-family: monospace; min-width: 24px; text-align: right;">100%</span>
+                            </div>
+                        </label>
+                        
+                        <!-- Áreas de Interesse -->
+                        <label class="control-item" style="display: flex; flex-direction: column; align-items: stretch; gap: 4px;">
+                            <div style="display: flex; align-items: center;">
+                                <input type="checkbox" id="layer-areas" checked>
+                                <span class="checkbox-custom"></span>
+                                <span class="layer-label">Áreas de Interesse (Glebas)</span>
+                            </div>
+                            <div id="areas-opacity-container" style="margin-left: 22px; display: flex; align-items: center; gap: 8px; margin-top: 4px;">
+                                <span style="font-size: 9px; color: var(--text-secondary); white-space: nowrap;">Opacidade:</span>
+                                <input type="range" id="layer-areas-opacity" min="0" max="1" step="0.05" value="0.10" style="flex: 1; height: 3px; accent-color: #10b981; cursor: pointer; outline: none; background: rgba(255,255,255,0.1); border-radius: 2px;">
+                                <span id="layer-areas-opacity-val" style="font-size: 9px; color: var(--text-secondary); font-family: monospace; min-width: 24px; text-align: right;">10%</span>
+                            </div>
+                        </label>
+                        
+                        <!-- Pontos de Decolagem -->
+                        <label class="control-item">
+                            <input type="checkbox" id="layer-points" checked>
+                            <span class="checkbox-custom"></span>
+                            <span class="layer-label">Pontos de Decolagem (Bases)</span>
+                        </label>
+                        
+                        <!-- Bases Estratégicas -->
+                        <label class="control-item">
+                            <input type="checkbox" id="layer-active-bases" checked>
+                            <span class="checkbox-custom"></span>
+                            <span class="layer-label">Bases Estratégicas Utilizadas</span>
+                        </label>
+                        
+                        <!-- Polígonos de Voo -->
+                        <label class="control-item" style="display: flex; flex-direction: column; align-items: stretch; gap: 4px;">
+                            <div style="display: flex; align-items: center;">
+                                <input type="checkbox" id="layer-flightplans" checked>
+                                <span class="checkbox-custom"></span>
+                                <span class="layer-label">Polígonos de Voo Gerados</span>
+                            </div>
+                            <div id="flightplans-opacity-container" style="margin-left: 22px; display: flex; align-items: center; gap: 8px; margin-top: 4px;">
+                                <span style="font-size: 9px; color: var(--text-secondary); white-space: nowrap;">Opacidade:</span>
+                                <input type="range" id="layer-flightplans-opacity" min="0" max="1" step="0.05" value="0.28" style="flex: 1; height: 3px; accent-color: #eab308; cursor: pointer; outline: none; background: rgba(255,255,255,0.1); border-radius: 2px;">
+                                <span id="layer-flightplans-opacity-val" style="font-size: 9px; color: var(--text-secondary); font-family: monospace; min-width: 24px; text-align: right;">28%</span>
+                            </div>
+                        </label>
+                        
+                        <!-- Desenhos Manuais -->
+                        <label class="control-item">
+                            <input type="checkbox" id="layer-drawings" checked>
+                            <span class="checkbox-custom"></span>
+                            <span class="layer-label">Desenhos Manuais</span>
+                        </label>
+                        
+                        <!-- KML Importado -->
+                        <label class="control-item">
+                            <input type="checkbox" id="layer-imported" checked>
+                            <span class="checkbox-custom"></span>
+                            <span class="layer-label">KML Importado</span>
+                        </label>
+                        
+                        <!-- Curvas de Nível -->
+                        <label class="control-item" style="display: flex; flex-direction: column; align-items: stretch; gap: 4px;">
+                            <div style="display: flex; align-items: center;">
+                                <input type="checkbox" id="layer-curvas" checked>
+                                <span class="checkbox-custom"></span>
+                                <span class="layer-label">Curvas de Nível</span>
+                            </div>
+                            <div id="opacity-control-container" style="margin-left: 22px; display: flex; align-items: center; gap: 8px; margin-top: 4px;">
+                                <span style="font-size: 9px; color: var(--text-secondary); white-space: nowrap;">Opacidade:</span>
+                                <input type="range" id="layer-curvas-opacity" min="0" max="1" step="0.05" value="0.75" style="flex: 1; height: 3px; accent-color: #06b6d4; cursor: pointer; outline: none; background: rgba(255,255,255,0.1); border-radius: 2px;">
+                            </div>
+                        </label>
+
+                        <!-- Estradas Vicinais -->
+                        <label class="control-item" style="display: flex; flex-direction: column; align-items: stretch; gap: 4px;">
+                            <div style="display: flex; align-items: center;">
+                                <input type="checkbox" id="layer-vicinais" checked>
+                                <span class="checkbox-custom"></span>
+                                <span class="layer-label">Estradas Vicinais</span>
+                            </div>
+                            <div id="vicinais-opacity-control" style="margin-left: 22px; display: flex; align-items: center; gap: 8px; margin-top: 4px;">
+                                <span style="font-size: 9px; color: var(--text-secondary); white-space: nowrap;">Opacidade:</span>
+                                <input type="range" id="layer-vicinais-opacity" min="0" max="1" step="0.05" value="0.80" style="flex: 1; height: 3px; accent-color: #06b6d4; cursor: pointer; outline: none; background: rgba(255,255,255,0.1); border-radius: 2px;">
+                                <span id="layer-vicinais-opacity-val" style="font-size: 9px; color: var(--text-secondary); font-family: monospace; min-width: 24px; text-align: right;">80%</span>
+                            </div>
+                        </label>
+
+                    </div>
+                </section>
+
+                <!-- Seção 1B: Busca de Pontos -->
+                <section class="control-section">
+                    <h2><span class="sec-icon">🔍</span> Buscar Ponto Geodésico</h2>
+                    <div class="search-container" style="display: flex; gap: 6px;">
+                        <input type="text" id="search-point-input" placeholder="Digite o ID do ponto (ex: PT-04)" style="flex: 1; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--panel-border); padding: 8px 10px; border-radius: 6px; color: #ffffff; font-size: 11px; outline: none; font-family: var(--font-body);">
+                        <button id="btn-search-point" class="btn btn-primary" style="padding: 0 12px; margin: 0; font-size: 11px; white-space: nowrap; font-weight: 700;">
+                            Buscar
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Seção 2: Otimização de Plano de Voo -->
+                <section class="control-section">
+                    <h2><span class="sec-icon">⚡</span> Parâmetros de Plano de Voo</h2>
+                    <div class="input-group" style="margin-bottom: 12px;">
+                        <label for="param-flight-shape">Formato da Área de Voo:</label>
+                        <select id="param-flight-shape" style="width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--panel-border); padding: 8px 10px; border-radius: 6px; color: #ffffff; font-size: 11px; outline: none; font-family: var(--font-body); cursor: pointer;">
+                            <option value="circle">Circular (Range de Voo)</option>
+                            <option value="rectangle">Retangular (Largura x Altura)</option>
+                        </select>
+                    </div>
+
+                    <!-- Range de Voo (Circular) -->
+                    <div class="input-group" id="container-param-range">
+                        <label for="param-range">Range de Voo (Raio do Centro ao Vértice):</label>
+                        <div class="range-value-container">
+                            <input type="range" id="param-range" min="500" max="3000" step="100" value="1800">
+                            <span id="range-val-display">1.800 m</span>
+                        </div>
+                    </div>
+
+                    <!-- Largura de Voo (Retangular) -->
+                    <div class="input-group" id="container-param-width" style="display: none;">
+                        <label for="param-width">Largura do Voo (Leste-Oeste):</label>
+                        <div class="range-value-container">
+                            <input type="range" id="param-width" min="100" max="5000" step="100" value="2000">
+                            <span id="width-val-display">2.000 m</span>
+                        </div>
+                    </div>
+
+                    <!-- Altura de Voo (Retangular) -->
+                    <div class="input-group" id="container-param-height" style="display: none;">
+                        <label for="param-height">Altura do Voo (Norte-Sul):</label>
+                        <div class="range-value-container">
+                            <input type="range" id="param-height" min="100" max="5000" step="100" value="2000">
+                            <span id="height-val-display">2.000 m</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Sobreposição Lateral -->
+                    <div class="input-group">
+                        <label for="param-overlap">Sobreposição Lateral entre Polígonos:</label>
+                        <div class="range-value-container">
+                            <input type="range" id="param-overlap" min="0" max="200" step="10" value="20">
+                            <span id="overlap-val-display">20 m</span>
+                        </div>
+                    </div>
+ 
+                    <button id="btn-generate-plan" class="btn btn-primary">
+                        <span class="btn-icon">⚙️</span> Gerar Plano Inteligente
+                    </button>
+                    <button id="btn-clear-plan" class="btn btn-secondary">
+                        Limpar Plano
+                    </button>
+                </section>
+ 
+                <!-- Seção 3: Ferramentas do Operador -->
+                <section class="control-section">
+                    <h2><span class="sec-icon">🛠️</span> Ferramentas de Campo</h2>
+                    <div class="tool-grid">
+                        <button id="tool-measure" class="btn-tool" title="Régua de Medição">
+                            <span class="tool-icon">📏</span> Régua
+                        </button>
+                        <button id="tool-draw-point" class="btn-tool" title="Desenhar Ponto">
+                            <span class="tool-icon">📍</span> Ponto
+                        </button>
+                        <button id="tool-draw-line" class="btn-tool" title="Desenhar Linha">
+                            <span class="tool-icon">📈</span> Linha
+                        </button>
+                        <button id="tool-draw-poly" class="btn-tool" title="Desenhar Polígono">
+                            <span class="tool-icon">⬡</span> Polígono
+                        </button>
+                    </div>
+                    <button id="btn-clear-drawings" class="btn btn-secondary btn-sm" style="margin-top: 10px; width: 100%;">
+                        Limpar Desenhos e Medições
+                    </button>
+                </section>
+
+                <!-- Seção Nova: Importação KML -->
+                <section class="control-section">
+                    <h2><span class="sec-icon">📂</span> Importar Arquivos</h2>
+                    <div class="import-container" style="margin-top: 10px;">
+                        <label for="input-kml" class="btn btn-secondary btn-sm" style="display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; border: 2px dashed rgba(245, 158, 11, 0.4); padding: 10px; background: rgba(15, 23, 42, 0.3); font-weight:700; margin-bottom: 0;">
+                            📂 Selecionar KML
+                        </label>
+                        <input type="file" id="input-kml" accept=".kml" style="display: none;">
+                        <button class="btn btn-secondary btn-sm" id="btn-clear-imported" style="width: 100%; margin-top: 8px; border-color: var(--danger-color); color: var(--danger-color); font-weight: 700; display: none;">
+                            🗑️ Limpar KML Importado
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Seção 4: Lista de Vôos e Exportação -->
+                <section class="control-section select-flights-section">
+                    <h2><span class="sec-icon">📥</span> Exportação KML</h2>
+                    <div class="stats-box">
+                        <div class="stat-item">
+                            <span class="stat-num" id="stat-total-points">0</span>
+                            <span class="stat-desc">Bases Totais</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-num" id="stat-selected-flights">0</span>
+                            <span class="stat-desc">Voos Ativos</span>
+                        </div>
+                    </div>
+
+                    <div class="input-group" style="margin-bottom: 12px;">
+                        <label for="export-directory">Pasta de Destino Local (PC):</label>
+                        <div style="display: flex; gap: 6px;">
+                            <input type="text" id="export-directory" placeholder="Ex: C:\MeusKMLs ou m:\Meu Drive\..." style="flex: 1; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--panel-border); padding: 8px 10px; border-radius: 6px; color: #ffffff; font-size: 11px; outline: none; font-family: var(--font-body);">
+                            <button id="btn-select-dir" class="btn btn-secondary btn-sm" style="font-weight: 700; white-space: nowrap; padding: 0 10px; font-size: 11px;">
+                                📂 Buscar...
+                            </button>
+                        </div>
+                        <span style="font-size: 9px; color: var(--text-secondary); margin-top: 2px;">No servidor, escolha a pasta de destino. Offline, baixa pelo navegador.</span>
+                    </div>
+
+                    <div id="flights-list-container" class="flights-list">
+                        <p class="placeholder-text">Nenhum polígono de voo gerado ainda. Clique em "Gerar Plano Inteligente".</p>
+                    </div>
+
+                    <button id="btn-export-kml" class="btn btn-success" disabled>
+                        <span class="btn-icon">💾</span> Exportar para KML
+                    </button>
+                </section>
+            </div>
+            
+            <footer class="sidebar-footer">
+                <p>FGIS Apui v1.0 • 2026</p>
+                <p id="data-vintage" class="data-vintage-text"></p>
+            </footer>
+        </aside>
+
+        <!-- Elemento do Mapa -->
+        <main id="map"></main>
+
+        <!-- Widget Flutuante de Medição / Dicas -->
+        <div id="info-widget" class="floating-widget hidden">
+            <span class="widget-icon">ℹ️</span>
+            <div id="info-widget-content">Dica de uso das ferramentas.</div>
+            <button id="btn-close-widget" class="btn-close">&times;</button>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    
+    <!-- Turf.js para Processamento Geográfico -->
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+    
+    <!-- Lógica da Aplicação -->
+    <script src="app.js?v=1.1.3"></script>
+</body>
+</html>

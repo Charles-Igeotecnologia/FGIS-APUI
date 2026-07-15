@@ -1,0 +1,27 @@
+# Dados geoespaciais brutos — não versionados no Git (arquivos grandes/binários).
+# Continuam apenas localmente/no Google Drive. Os dados derivados que a aplicação
+# web realmente consome (fgis/data/*.geojson) permanecem versionados normalmente.
+GeoPackageApui.gpkg
+GeoPackageApui_backup.gpkg
+*.gpkg-shm
+*.gpkg-wal
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Ambientes virtuais
+.venv/
+venv/
+env/
+
+# Sistema operacional
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Editores/IDEs
+.vscode/
+.idea/
+*.swp

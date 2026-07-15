@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Planos de Voo Projeto Apui</name>
+    <description>Planos de voo recortados pelas glebas e sem sobreposicao</description>
+    
+    <Style id="flightPlanStyle">
+      <LineStyle>
+        <color>ff00ff00</color> <!-- Verde -->
+        <width>2.5</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>3200ff00</color> <!-- Verde Translúcido -->
+      </PolyStyle>
+    </Style>
+
+    <Folder>
+      <name>Ponto 1 - EMA-TR-078</name>
+      <Placemark>
+        <name>Poligono de Voo (Ponto 1)</name>
+        <styleUrl>#flightPlanStyle</styleUrl>
+        <Polygon>
+          <tessellate>1</tessellate>
+          <outerBoundaryIs>
+            <LinearRing>
+              <coordinates>
+                -59.87015039874944,-7.406714823667013,0
+          -59.847052311074485,-7.406714823667013,0
+          -59.847052311074485,-7.406488630984259,0
+          -59.85161019512125,-7.40650685006158,0
+          -59.85152156295201,-7.383808870275807,0
+          -59.87015039874944,-7.383808870275807,0
+          -59.87015039874944,-7.406714823667013,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>Base de Decolagem Ponto 1 (EMA-TR-078)</name>
+        <Point>
+          <coordinates>-59.85860135491196,-7.39526184697141,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Ponto 2 - EMA-TR-070</name>
+      <Placemark>
+        <name>Poligono de Voo (Ponto 2)</name>
+        <styleUrl>#flightPlanStyle</styleUrl>
+        <Polygon>
+          <tessellate>1</tessellate>
+          <outerBoundaryIs>
+            <LinearRing>
+              <coordinates>
+                -59.87526256601432,-7.427614940765242,0
+          -59.85450592600527,-7.427614940765242,0
+          -59.85450592600527,-7.406714823667013,0
+          -59.87015039874944,-7.406714823667013,0
+          -59.87015039874944,-7.404708987374036,0
+          -59.8752493301622,-7.404708987374036,0
+          -59.87526256601432,-7.427614940765242,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>Base de Decolagem Ponto 2 (EMA-TR-070)</name>
+        <Point>
+          <coordinates>-59.8660555174316,-7.416161964069639,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Ponto 3 - EMA-TR-036</name>
+      <Placemark>
+        <name>Poligono de Voo (Ponto 3)</name>
+        <styleUrl>#flightPlanStyle</styleUrl>
+        <Polygon>
+          <tessellate>1</tessellate>
+          <outerBoundaryIs>
+            <LinearRing>
+              <coordinates>
+                -59.87526955954913,-7.439717945609533,0
+          -59.854574158453616,-7.439856053041087,0
+          -59.854574158453616,-7.427614940765242,0
+          -59.87526256601432,-7.427614940765242,0
+          -59.87526955954913,-7.439717945609533,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>Base de Decolagem Ponto 3 (EMA-TR-036)</name>
+        <Point>
+          <coordinates>-59.86612423169378,-7.434501656406496,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Ponto 4 - EMA-TR-087</name>
+      <Placemark>
+        <name>Poligono de Voo (Ponto 4)</name>
+        <styleUrl>#flightPlanStyle</styleUrl>
+        <Polygon>
+          <tessellate>1</tessellate>
+          <outerBoundaryIs>
+            <LinearRing>
+              <coordinates>
+                -59.854574158453616,-7.4283204870839095,0
+          -59.83247342332142,-7.4283204870839095,0
+          -59.83247342332142,-7.406430355284285,0
+          -59.847052311074485,-7.406488630984259,0
+          -59.847052311074485,-7.406714823667013,0
+          -59.85450592600527,-7.406714823667013,0
+          -59.85450592600527,-7.427614940765242,0
+          -59.854574158453616,-7.427614940765242,0
+          -59.854574158453616,-7.4283204870839095,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>Base de Decolagem Ponto 4 (EMA-TR-087)</name>
+        <Point>
+          <coordinates>-59.84402303326098,-7.416867510388307,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Ponto 5 - EMA-TR-009</name>
+      <Placemark>
+        <name>Poligono de Voo (Ponto 5)</name>
+        <styleUrl>#flightPlanStyle</styleUrl>
+        <Polygon>
+          <tessellate>1</tessellate>
+          <outerBoundaryIs>
+            <LinearRing>
+              <coordinates>
+                -59.854574158453616,-7.439856053041087,0
+          -59.8337978214975,-7.439994700585093,0
+          -59.8337978214975,-7.4283204870839095,0
+          -59.854574158453616,-7.4283204870839095,0
+          -59.854574158453616,-7.439856053041087,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>Base de Decolagem Ponto 5 (EMA-TR-009)</name>
+        <Point>
+          <coordinates>-59.84534781610343,-7.431511711634327,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Ponto 6 - EML-TR-066</name>
+      <Placemark>
+        <name>Poligono de Voo (Ponto 6)</name>
+        <styleUrl>#flightPlanStyle</styleUrl>
+        <Polygon>
+          <tessellate>1</tessellate>
+          <outerBoundaryIs>
+            <LinearRing>
+              <coordinates>
+                -59.81909731711366,-7.414229132397243,-59.818546447042685,-7.414229132397243,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>Base de Decolagem Ponto 6 (EML-TR-066)</name>
+        <Point>
+          <coordinates>-59.80754807658212,-7.40277615570164,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Ponto 7 - EMA-TR-069</name>
+      <Placemark>
+        <name>Poligono de Voo (Ponto 7)</name>
+        <styleUrl>#flightPlanStyle</styleUrl>
+        <Polygon>
+          <tessellate>1</tessellate>
+          <outerBoundaryIs>
+            <LinearRing>
+              <coordinates>
+                -59.87524599312999,-7.398933922523239,0
+          -59.87015039874944,-7.398933922523239,0
+          -59.87015039874944,-7.383808870275807,0
+          -59.86154526328938,-7.383808870275807,0
+          -59.86154526328938,-7.383714916031605,0
+          -59.87523714146008,-7.383615230807503,0
+          -59.87524599312999,-7.398933922523239,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>Base de Decolagem Ponto 7 (EMA-TR-069)</name>
+        <Point>
+          <coordinates>-59.87309410367089,-7.387480945827636,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Ponto 8 - Virtual-PT-2</name>
+      <Placemark>
+        <name>Poligono de Voo (Ponto 8)</name>
+        <styleUrl>#flightPlanStyle</styleUrl>
+        <Polygon>
+          <tessellate>1</tessellate>
+          <outerBoundaryIs>
+            <LinearRing>
+              <coordinates>
+                -59.8337978214975,-7.439994700585093,0
+          -59.81839692013643,-7.440097476023983,0
+          -59.81848794247812,-7.424350495954697,0
+          -59.83247342332142,-7.424350495954697,0
+          -59.83247342332142,-7.4283204870839095,0
+          -59.8337978214975,-7.4283204870839095,0
+          -59.8337978214975,-7.439994700585093,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>Base de Decolagem Ponto 8 (Virtual-PT-2)</name>
+        <Point>
+          <coordinates>-59.82573791255675,-7.4358034726503,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Ponto 9 - Virtual-PT-2</name>
+      <Placemark>
+        <name>Poligono de Voo (Ponto 9)</name>
+        <styleUrl>#flightPlanStyle</styleUrl>
+        <Polygon>
+          <tessellate>1</tessellate>
+          <outerBoundaryIs>
+            <LinearRing>
+              <coordinates>
+                -59.83247342332142,-7.424350495954697,0
+          -59.82531276099775,-7.424350495954697,0
+          -59.82531276099775,-7.406401732208488,0
+          -59.83247342332142,-7.406430355284285,0
+          -59.83247342332142,-7.424350495954697,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>Base de Decolagem Ponto 9 (Virtual-PT-2)</name>
+        <Point>
+          <coordinates>-59.836862277181154,-7.413293716796103,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>
